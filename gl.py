@@ -88,11 +88,11 @@ class Renderer(object):
         forward = lpm.suma_o_resta_vectores(camPosition, eye, True) #np.subtract(camPosition, eye)
         forward = lpm.normalizaVector(forward)#forward / np.linalg.norm(forward)
 
-        right = np.cross(V3(0,1,0), forward)
-        right = right / np.linalg.norm(right)
+        right = lpm.productoCruz(V3(0, 1, 0), forward) #np.cross(V3(0,1,0), forward)
+        right = lpm.normalizaVector(right)#right / np.linalg.norm(right)
 
-        up = np.cross(forward, right)
-        up = up / np.linalg.norm(up)
+        up = lpm.productoCruz(forward, right)#np.cross(forward, right)
+        up = lpm.normalizaVector(up) #up / np.linalg.norm(up)
 
         self.camMatrix = np.matrix([[right[0],up[0],forward[0],camPosition[0]],
                                     [right[1],up[1],forward[1],camPosition[1]],

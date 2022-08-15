@@ -214,5 +214,3 @@ def matriz_adjunta(matriz):
         matriz_adj.append(fila)
         signo_f = -signo_f
     return matriz_adj
-
-print(matriz_adjunta([[-3, 2, 0], [1, -1, 2], [-2, 1, 3]]))
