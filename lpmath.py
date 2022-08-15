@@ -152,5 +152,41 @@ def suma_o_resta_vectores(vector_1: list, vector_2: list, is_resta: bool = False
         vector_res.append(vector_1[i]+factor*vector_2[i])
     return vector_res
 
-def determinante():
-    pass
+def isSquared(matrix):
+    altura = len(matrix)
+    for fila in matrix:
+        if not len(fila)==altura:
+            return False
+    return True 
+
+def determinante(matriz):
+    if not isSquared(matriz):
+        raise Exception("No es posible obtener determinante de una matriz no cuadarada")
+    alto = len(matriz)
+    if alto==2:
+        return determinante_2x2(matriz)
+    else:
+        return determinante_adj(matriz, 1)
+
+def determinante_2x2(matriz):
+    if not isSquared(matriz):
+        raise Exception("No es posible obtener determinante de una matriz no cuadarada")
+        
+    try:    
+        return matriz[0][0]*matriz[1][1] - matriz[0][1]*matriz[1][0]
+    except:
+        raise Exception('Estructura de matriz 2x2 no admitida') 
+
+def determinante_adj(matriz, coef):
+    if not isSquared(matriz):
+        raise Exception("No es posible obtener determinante de una matriz no cuadarada")
+    if len(matriz)==2:
+        return coef * determinante_2x2(matriz)
+    else:
+        signo = 1
+        determinante = 0
+        for i in range(len(matriz[0])):
+            matriz_adj = [[fila[item] for item in range(len(fila)) if not item==i] for fila in matriz[1:]]
+            determinante += signo*determinante_adj(matriz_adj, matriz[0][i])
+            signo = -signo
+        return coef*determinante
