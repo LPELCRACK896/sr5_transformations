@@ -1,5 +1,6 @@
 from  math import pi, cos, tan, sin, acos
 from collections import namedtuple
+from tkinter.messagebox import RETRY
 
 V2 = namedtuple('Point2', ['x', 'y'])
 
@@ -190,3 +191,28 @@ def determinante_adj(matriz, coef):
             determinante += signo*determinante_adj(matriz_adj, matriz[0][i])
             signo = -signo
         return coef*determinante
+
+def matriz_transpuesta(matriz):
+    T = [[] for i in matriz[0]]
+    for fila_i in range(len(matriz)):
+        for item_i in range(len(matriz[fila_i])):
+            T[item_i].append(matriz[fila_i][item_i])
+    return T
+
+def matriz_adjunta(matriz):
+    if len(matriz)==2:
+        return [[matriz[1][1], -matriz[0][1]], [ -matriz[1][0], matriz[0][0]]]
+    
+    signo_f = 1
+    matriz_adj = [] 
+    for j in range(len(matriz)):
+        signo_i = signo_f
+        fila = []
+        for i in range(len(matriz[j])):
+            fila.append(signo_i*determinante([[matriz[fil][item] for item in range(len(matriz[fil])) if not item==i] for fil in range(len(matriz)) if not fil == j ]))
+            signo_i = - signo_i
+        matriz_adj.append(fila)
+        signo_f = -signo_f
+    return matriz_adj
+
+print(matriz_adjunta([[-3, 2, 0], [1, -1, 2], [-2, 1, 3]]))
