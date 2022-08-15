@@ -214,3 +214,11 @@ def matriz_adjunta(matriz):
         matriz_adj.append(fila)
         signo_f = -signo_f
     return matriz_adj
+
+def matriz_inversa(matriz):
+    det = determinante(matriz)
+    if det == 0:
+        print("Es una matriz singular")
+        print("No tiene inversa")
+        return None
+    return [[item/det for item in fila] for fila in matriz_adjunta(matriz) ] 
